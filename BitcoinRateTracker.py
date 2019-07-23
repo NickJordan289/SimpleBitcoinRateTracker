@@ -31,6 +31,14 @@ threshold = (14000, 15000)
 # toast display title
 APP_TITLE = 'Bitcoin Tracker'
 
+def countdown(n):
+    while n > 0:
+		# zfill pads seconds and minutes with 0 if less than 10
+		# carriage return is important so the price feed isnt blocked by each timer
+        print(f'{str(n//60).zfill(2)}:{str(n%60).zfill(2)}s', end='\r')
+        time.sleep(1)
+        n -= 1
+
 if __name__ == '__main__':
 	os.system('color')
 	old_price = None
@@ -63,6 +71,6 @@ if __name__ == '__main__':
 		
 		sleep_time = date_unix-cur_date_unix
 		#print(f'Sleeping for {sleep_time}s')
-		if(sleep_time <= 0):
-			sleep_time = 1
-		time.sleep(sleep_time)
+		if(sleep_time <= 0): # cant have negative values
+			sleep_time = 0.1 # play it safe with small delay
+		countdown(sleep_time)
