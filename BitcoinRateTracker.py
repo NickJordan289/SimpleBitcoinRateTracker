@@ -6,11 +6,15 @@ import calendar
 from colorama import Fore, Style
 import os
 from win10toast import ToastNotifier
+from dotenv import load_dotenv
 
+# load env file
+load_dotenv()
 # One-time initialization
 toaster = ToastNotifier()
 
-my_bal = 0.00169907
+# set globals
+my_bal = float(os.getenv('bal'))
 threshold = (14000, 15000)
 APP_TITLE = 'Bitcoin Tracker'
 
