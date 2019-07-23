@@ -6,16 +6,29 @@ import calendar
 from colorama import Fore, Style
 import os
 from win10toast import ToastNotifier
+from pathlib import Path
 from dotenv import load_dotenv
 
 # load env file
-load_dotenv()
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
 # One-time initialization
 toaster = ToastNotifier()
 
 # set globals
-my_bal = float(os.getenv('bal'))
+
+# ensures that balance is in env file
+try:
+	my_bal = float(os.getenv('bal'))
+except Exception as e:
+	with open('.env', 'w') as file:
+		file.write('bal=0.002')
+	my_bal = 0.002 # default value
+		
+# if value escapes out of these bounds a toast will display
 threshold = (14000, 15000)
+
+# toast display title
 APP_TITLE = 'Bitcoin Tracker'
 
 if __name__ == '__main__':
