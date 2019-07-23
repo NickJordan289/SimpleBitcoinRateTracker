@@ -5,8 +5,14 @@ from datetime import datetime
 import calendar
 from colorama import Fore, Style
 import os
+from win10toast import ToastNotifier
+
+# One-time initialization
+toaster = ToastNotifier()
 
 my_bal = 0.00169907
+threshold = (14000, 15000)
+APP_TITLE = 'Bitcoin Tracker'
 
 if __name__ == '__main__':
 	os.system('color')
@@ -24,6 +30,12 @@ if __name__ == '__main__':
 				print(f'({Fore.RED}{diff}{Style.RESET_ALL}) {new_price} AUD - ${my_bal*new_price}')
 		else:
 			print(f'${new_price} AUD - ${my_bal*new_price}')
+			
+		if new_price <= threshold[0]:
+			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', "Bitcoin is now worth less than {threshold[0]} AUD", threaded=True, icon_path=None, duration=3)
+		elif new_price >= threshold[1]:
+			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', "Bitcoin is now worth more than {threshold[1]} AUD", threaded=True, icon_path=None, duration=3)
+		
 		
 		old_price = new_price
 		
