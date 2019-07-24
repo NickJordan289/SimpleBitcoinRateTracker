@@ -57,9 +57,9 @@ if __name__ == '__main__':
 			print(f'${new_price} AUD - ${my_bal*new_price}')
 			
 		if new_price <= threshold[0]:
-			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', "Bitcoin is now worth less than {threshold[0]} AUD", threaded=True, icon_path=None, duration=3)
+			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', f"Bitcoin is now worth less than ${threshold[0]} AUD", threaded=True, icon_path=None, duration=3)
 		elif new_price >= threshold[1]:
-			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', "Bitcoin is now worth more than {threshold[1]} AUD", threaded=True, icon_path=None, duration=3)
+			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', f"Bitcoin is now worth more than ${threshold[1]} AUD", threaded=True, icon_path=None, duration=3)
 		
 		
 		old_price = new_price
