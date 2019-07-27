@@ -19,14 +19,14 @@ toaster = ToastNotifier()
 
 # ensures that balance is in env file
 try:
-	my_bal = float(os.getenv('bal'))
+	btc_bal = float(os.getenv('btc_bal'))
 except Exception as e:
 	with open('.env', 'w') as file:
-		file.write('bal=0.002')
-	my_bal = 0.002 # default value
+		file.write('btc_bal=0.002')
+	btc_bal = 0.002 # default value
 		
 # if value escapes out of these bounds a toast will display
-threshold = (14000, 15000)
+threshold = (13500, 15000)
 
 # toast display title
 APP_TITLE = 'Bitcoin Tracker'
@@ -50,11 +50,11 @@ if __name__ == '__main__':
 			diff = new_price - old_price
 			if diff > 0:
 				diff = f'+{diff}'
-				print(f'({Fore.GREEN}{diff}{Style.RESET_ALL}) {new_price} AUD - ${my_bal*new_price}')
+				print(f'({Fore.GREEN}{diff}{Style.RESET_ALL}) {new_price} AUD - ${btc_bal*new_price}')
 			else:	
-				print(f'({Fore.RED}{diff}{Style.RESET_ALL}) {new_price} AUD - ${my_bal*new_price}')
+				print(f'({Fore.RED}{diff}{Style.RESET_ALL}) {new_price} AUD - ${btc_bal*new_price}')
 		else:
-			print(f'${new_price} AUD - ${my_bal*new_price}')
+			print(f'${new_price} AUD - ${btc_bal*new_price}')
 			
 		if new_price <= threshold[0]:
 			toaster.show_toast(f'{APP_TITLE} - Threshold Alert', f"Bitcoin is now worth less than ${threshold[0]} AUD", threaded=True, icon_path=None, duration=3)
